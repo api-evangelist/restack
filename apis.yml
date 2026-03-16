@@ -2,30 +2,29 @@ aid: restack
 name: Restack
 description: >-
   Restack backend framework provides long-running workflows and infrastructure
-  for reliable 
+  for reliable applications.
 type: Index
-position: Consumer
-access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - API
-created: '2025-02-17'
-modified: '2025-02-17'
+  - Workflows
 url: >-
   https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/apis.yml
+created: '2025-02-17'
+modified: '2026-03-16'
 specificationVersion: '0.19'
 apis:
   - aid: restack:restack
     name: Restack
     description: >-
       Restack backend framework provides long-running workflows and
-      infrastructure for reliable 
-    humanURL: undefined
+      infrastructure for reliable applications.
+    humanURL: https://www.restack.io/docs
     tags:
       - API
     properties:
       - type: Documentation
-        url: undefined
+        url: https://www.restack.io/docs
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
