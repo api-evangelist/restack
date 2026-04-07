@@ -6,7 +6,6 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - API
   - Workflows
 url: >-
   https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/apis.yml
@@ -20,8 +19,7 @@ apis:
       Restack backend framework provides long-running workflows and
       infrastructure for reliable applications.
     humanURL: https://www.restack.io/docs
-    tags:
-      - API
+    tags: []
     properties:
       - type: Documentation
         url: https://www.restack.io/docs
