@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:6233/api/workflows/OrderFulfillmentWorkflow",
+    "headers": {
+      "Authorization": "Bearer {{RESTACK_API_BEARER_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": {
+        "orderId": "order_9876",
+        "customerId": "cust_4321",
+        "items": [
+          {"sku": "PROD-001", "quantity": 2},
+          {"sku": "PROD-002", "quantity": 1}
+        ],
+        "shippingAddress": {
+          "street": "123 Main St",
+          "city": "San Francisco",
+          "state": "CA",
+          "zip": "94105"
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "runId": "run_workflow_def456",
+      "status": "queued"
+    }
+  }
+}

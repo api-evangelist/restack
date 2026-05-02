@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-workflow-run-schema.json",
+  "title": "Workflow Run",
+  "description": "Represents the status and result of a Restack long-running workflow execution.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "string",
+      "description": "Unique identifier for the workflow run.",
+      "pattern": "^run_[a-zA-Z0-9_]+$"
+    },
+    "workflowName": {
+      "type": "string",
+      "description": "The name of the workflow that was executed."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current execution status of the workflow run.",
+      "enum": ["queued", "running", "completed", "failed"]
+    },
+    "input": {
+      "type": "object",
+      "description": "Input parameters provided when scheduling the workflow.",
+      "additionalProperties": true
+    },
+    "output": {
+      "type": "object",
+      "description": "Output returned by the workflow upon completion.",
+      "additionalProperties": true
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message if the workflow run failed."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the workflow run was created."
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the workflow run completed."
+    }
+  },
+  "required": ["runId", "workflowName", "status"]
+}

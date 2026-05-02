@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:6233/api/agents/CustomerSupportAgent/run_abc123xyz789",
+    "headers": {
+      "Authorization": "Bearer {{RESTACK_API_BEARER_TOKEN}}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "runId": "run_abc123xyz789",
+      "agentName": "CustomerSupportAgent",
+      "status": "completed",
+      "output": {
+        "response": "I've sent a password reset link to your registered email address. Please check your inbox and follow the instructions.",
+        "ticketId": "TICKET-5678",
+        "resolved": true
+      },
+      "createdAt": "2026-05-02T10:15:00Z",
+      "completedAt": "2026-05-02T10:15:42Z"
+    }
+  }
+}

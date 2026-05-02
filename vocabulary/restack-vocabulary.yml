@@ -1,0 +1,102 @@
+vocabulary:
+  name: Restack Vocabulary
+  description: Domain vocabulary for the Restack AI agent and workflow orchestration platform
+  version: 1.0.0
+  created: '2026-05-02'
+  modified: '2026-05-02'
+  tags:
+    - AI Agents
+    - Workflows
+    - Orchestration
+
+terms:
+  - term: Agent
+    definition: A Restack AI agent is an autonomous program that executes a long-running task, integrates with external APIs and tools, and returns structured output. Each agent is addressable via a REST endpoint.
+    category: Core Concept
+    relatedTerms:
+      - Workflow
+      - Run
+      - Schedule
+
+  - term: Workflow
+    definition: A Restack workflow is a long-running, stateful orchestration of functions and agents that can persist state across days, months, or years. Workflows support event-driven processes, cron scheduling, and feedback loops.
+    category: Core Concept
+    relatedTerms:
+      - Agent
+      - Schedule
+      - Run
+
+  - term: Run
+    definition: An execution instance of an agent or workflow, identified by a unique runId. A run progresses through states (queued, running, completed, failed) and stores input/output pairs.
+    category: Execution
+    relatedTerms:
+      - RunId
+      - Status
+      - Schedule
+
+  - term: RunId
+    definition: A unique identifier for an agent or workflow execution run, typically prefixed with "run_".
+    category: Identifier
+    relatedTerms:
+      - Run
+
+  - term: Schedule
+    definition: The act of queuing an agent or workflow for asynchronous execution. Restack supports immediate scheduling (POST to REST endpoint) and time-based scheduling (cron).
+    category: Operation
+    relatedTerms:
+      - Run
+      - Cron
+
+  - term: Cron
+    definition: Time-based scheduling expression used to trigger agent and workflow executions at specific times or intervals.
+    category: Feature
+    relatedTerms:
+      - Schedule
+
+  - term: Bearer Token
+    definition: Authentication mechanism for the Restack REST API. Set via the RESTACK_API_BEARER_TOKEN environment variable.
+    category: Security
+    relatedTerms:
+      - Authentication
+
+  - term: Boilerplate
+    definition: The official Restack TypeScript or Python starter template for new agent projects.
+    category: Tooling
+    relatedTerms:
+      - SDK
+
+  - term: Input
+    definition: Typed parameters passed to an agent or workflow when scheduling. Inputs must match the defined type schema for the agent.
+    category: Data
+    relatedTerms:
+      - Output
+      - Run
+
+  - term: Output
+    definition: Typed result returned by an agent or workflow upon successful completion of a run.
+    category: Data
+    relatedTerms:
+      - Input
+      - Run
+
+  - term: Human in the Loop
+    definition: A workflow pattern where human review or approval is required at intermediate steps. Restack supports pausing workflows to await human input.
+    category: Pattern
+    relatedTerms:
+      - Workflow
+
+  - term: MCP
+    definition: Model Context Protocol — an integration protocol for exposing Restack workflows and agents as AI assistant tools.
+    category: Integration
+
+  - term: Kubernetes
+    definition: Container orchestration platform used to deploy and scale Restack instances. Official Helm charts are provided.
+    category: Infrastructure
+    relatedTerms:
+      - Helm
+
+  - term: Helm
+    definition: Kubernetes package manager used to deploy Restack via official Helm charts.
+    category: Infrastructure
+    relatedTerms:
+      - Kubernetes

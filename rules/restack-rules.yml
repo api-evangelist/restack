@@ -1,0 +1,100 @@
+extends: spectral:oas
+rules:
+  # Restack API conventions
+  restack-operation-ids-kebab-case:
+    description: Operation IDs must use camelCase (Restack convention)
+    message: "Operation ID '{{value}}' must use camelCase"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  restack-paths-api-prefix:
+    description: All Restack paths must start with /api/ or /health
+    message: "Path '{{path}}' must start with /api/ or be a system path (/health)"
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/api/|^/health$"
+
+  restack-resource-path-components:
+    description: Agent and workflow paths must include resource type and name
+    message: "Restack paths should follow /api/{resourceType}/{resourceName} pattern"
+    severity: info
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/api/(agents|workflows)/\\{[a-zA-Z]+\\}"
+
+  restack-bearer-auth-required:
+    description: All non-health endpoints must require bearer authentication
+    message: "Operation should require bearerAuth security scheme"
+    severity: warn
+    given: "$.paths[?(!@property.match(/health/))][*]"
+    then:
+      field: security
+      function: defined
+
+  restack-operations-have-tags:
+    description: All operations must have at least one tag
+    message: "Operation must include at least one tag for grouping"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: defined
+
+  restack-responses-have-200:
+    description: POST operations should have a 200 success response
+    message: "POST operation must define a 200 success response"
+    severity: warn
+    given: "$.paths[*].post"
+    then:
+      field: responses.200
+      function: defined
+
+  restack-request-body-content-type:
+    description: Request bodies must use application/json
+    message: "Request body must use application/json content type"
+    severity: error
+    given: "$.paths[*][*].requestBody.content"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - application/json
+
+  restack-input-object-structure:
+    description: Request bodies should wrap input in an 'input' property
+    message: "Request body schema should include an 'input' property wrapping agent/workflow inputs"
+    severity: info
+    given: "$.paths[?(@property.match(/\\/api\\/(agents|workflows)/)].post.requestBody.content.application/json.schema.properties"
+    then:
+      field: input
+      function: defined
+
+  restack-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*(\\s[A-Z][a-zA-Z0-9]*)*$"
+
+  restack-info-contact-defined:
+    description: API info must include contact information
+    message: "API info must include a contact object"
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: defined

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-agent-run-schema.json",
+  "title": "Agent Run",
+  "description": "Represents the status and result of a Restack AI agent execution run.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "string",
+      "description": "Unique identifier for the agent run.",
+      "pattern": "^run_[a-zA-Z0-9]+$"
+    },
+    "agentName": {
+      "type": "string",
+      "description": "The name of the agent that was executed."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current execution status of the agent run.",
+      "enum": ["queued", "running", "completed", "failed"]
+    },
+    "input": {
+      "type": "object",
+      "description": "Input parameters provided when scheduling the agent.",
+      "additionalProperties": true
+    },
+    "output": {
+      "type": "object",
+      "description": "Output returned by the agent upon completion.",
+      "additionalProperties": true
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message if the agent run failed."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the agent run was created."
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the agent run completed."
+    }
+  },
+  "required": ["runId", "status"]
+}

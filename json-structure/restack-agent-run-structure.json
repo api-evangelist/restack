@@ -1,0 +1,55 @@
+{
+  "name": "Agent Run",
+  "description": "Structure documentation for a Restack AI agent execution run",
+  "fields": [
+    {
+      "name": "runId",
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier for the agent run, prefixed with 'run_'"
+    },
+    {
+      "name": "agentName",
+      "type": "string",
+      "required": false,
+      "description": "Name of the executed agent"
+    },
+    {
+      "name": "status",
+      "type": "enum",
+      "required": true,
+      "description": "Execution status",
+      "values": ["queued", "running", "completed", "failed"]
+    },
+    {
+      "name": "input",
+      "type": "object",
+      "required": false,
+      "description": "Input parameters passed when scheduling the agent"
+    },
+    {
+      "name": "output",
+      "type": "object",
+      "required": false,
+      "description": "Result returned by the agent on completion"
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message if the run failed"
+    },
+    {
+      "name": "createdAt",
+      "type": "string (date-time)",
+      "required": false,
+      "description": "ISO 8601 creation timestamp"
+    },
+    {
+      "name": "completedAt",
+      "type": "string (date-time)",
+      "required": false,
+      "description": "ISO 8601 completion timestamp"
+    }
+  ]
+}

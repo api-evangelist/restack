@@ -1,0 +1,166 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Restack Agent and Workflow Orchestration"
+  description: "Unified capability for scheduling, triggering, and monitoring AI agents and long-running workflows on the Restack platform. Enables product teams and engineers to programmatically invoke agents, track execution status, and manage workflow lifecycle from any client application."
+  tags:
+    - AI Agents
+    - Workflows
+    - Orchestration
+    - Enterprise
+    - Automation
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RESTACK_API_BEARER_TOKEN: RESTACK_API_BEARER_TOKEN
+
+capability:
+  consumes:
+    - import: restack
+      location: ./shared/restack.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: restack-orchestration-api
+      description: "Unified REST API for AI agent and workflow orchestration on Restack."
+      resources:
+        - path: /v1/agents/{agentName}
+          name: agents
+          description: "Schedule AI agents for asynchronous execution"
+          operations:
+            - method: POST
+              name: schedule-agent
+              description: "Schedule an AI agent by name with typed input parameters"
+              call: "restack.schedule-agent"
+              with:
+                agentName: "rest.agentName"
+                input: "rest.body.input"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/agents/{agentName}/{runId}
+          name: agent-runs
+          description: "Track agent execution status and retrieve results"
+          operations:
+            - method: GET
+              name: get-agent-run
+              description: "Get the current status and output of an agent run"
+              call: "restack.get-agent-run"
+              with:
+                agentName: "rest.agentName"
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workflows/{workflowName}
+          name: workflows
+          description: "Schedule long-running workflows that persist state"
+          operations:
+            - method: POST
+              name: schedule-workflow
+              description: "Schedule a workflow by name with typed input parameters"
+              call: "restack.schedule-workflow"
+              with:
+                workflowName: "rest.workflowName"
+                input: "rest.body.input"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workflows/{workflowName}/{runId}
+          name: workflow-runs
+          description: "Track workflow execution status and retrieve results"
+          operations:
+            - method: GET
+              name: get-workflow-run
+              description: "Get the current status and output of a workflow run"
+              call: "restack.get-workflow-run"
+              with:
+                workflowName: "rest.workflowName"
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/health
+          name: health
+          description: "Server health monitoring"
+          operations:
+            - method: GET
+              name: health-check
+              description: "Check Restack server health"
+              call: "restack.health-check"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: restack-orchestration-mcp
+      transport: http
+      description: "MCP server for AI-assisted agent and workflow orchestration on the Restack platform."
+      tools:
+        - name: schedule-agent
+          description: "Schedule an AI agent on Restack for asynchronous execution. Returns a runId to track progress."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "restack.schedule-agent"
+          with:
+            agentName: "tools.agentName"
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-agent-run
+          description: "Get the current status and output of a Restack agent run by name and run ID."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "restack.get-agent-run"
+          with:
+            agentName: "tools.agentName"
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: schedule-workflow
+          description: "Schedule a long-running workflow on Restack. Workflows persist state across days, months, or years."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "restack.schedule-workflow"
+          with:
+            workflowName: "tools.workflowName"
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-workflow-run
+          description: "Get the current status and output of a Restack workflow run by name and run ID."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "restack.get-workflow-run"
+          with:
+            workflowName: "tools.workflowName"
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: health-check
+          description: "Check the health status of the Restack server."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "restack.health-check"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:6233/api/agents/CustomerSupportAgent",
+    "headers": {
+      "Authorization": "Bearer {{RESTACK_API_BEARER_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": {
+        "userId": "user_12345",
+        "message": "I need help resetting my password",
+        "channel": "web",
+        "priority": "normal"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "runId": "run_abc123xyz789",
+      "status": "queued"
+    }
+  }
+}
