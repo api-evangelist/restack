@@ -45,9 +45,9 @@ apis:
         url: https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/vocabulary/restack-vocabulary.yml
       - type: Documentation
         url: https://docs.restack.io/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.restack.io/
-      - type: GitHub Organization
+      - type: GitHubOrganization
         url: https://github.com/restackio
       - type: Python SDK
         url: https://github.com/restackio/examples-python
@@ -62,7 +62,7 @@ common:
     url: https://www.restack.io/
   - type: Documentation
     url: https://docs.restack.io/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/restackio
   - type: LinkedIn
     url: https://www.linkedin.com/company/restackio/
