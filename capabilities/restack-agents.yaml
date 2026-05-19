@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Restack API — Agents
+  description: 'Restack API — Agents. 2 operations. Lead operation: Schedule Agent. Self-contained Naftiko capability covering
+    one Restack business surface.'
+  tags:
+  - Restack
+  - Agents
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RESTACK_API_KEY: RESTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: restack-agents
+    baseUri: http://localhost:6233
+    description: Restack API — Agents business capability. Self-contained, no shared references.
+    resources:
+    - name: api-agents-agentName
+      path: /api/agents/{agentName}
+      operations:
+      - name: scheduleagent
+        method: POST
+        description: Schedule Agent
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: agentName
+          in: path
+          type: string
+          description: The name of the agent to schedule.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-agents-agentName-runId
+      path: /api/agents/{agentName}/{runId}
+      operations:
+      - name: getagentrun
+        method: GET
+        description: Get Agent Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: agentName
+          in: path
+          type: string
+          required: true
+        - name: runId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RESTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: restack-agents-rest
+    port: 8080
+    description: REST adapter for Restack API — Agents. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/agents/{agentname}
+      name: api-agents-agentname
+      description: REST surface for api-agents-agentName.
+      operations:
+      - method: POST
+        name: scheduleagent
+        description: Schedule Agent
+        call: restack-agents.scheduleagent
+        with:
+          agentName: rest.agentName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/agents/{agentname}/{runid}
+      name: api-agents-agentname-runid
+      description: REST surface for api-agents-agentName-runId.
+      operations:
+      - method: GET
+        name: getagentrun
+        description: Get Agent Run
+        call: restack-agents.getagentrun
+        with:
+          agentName: rest.agentName
+          runId: rest.runId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: restack-agents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Restack API — Agents. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: schedule-agent
+      description: Schedule Agent
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: restack-agents.scheduleagent
+      with:
+        agentName: tools.agentName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-agent-run
+      description: Get Agent Run
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: restack-agents.getagentrun
+      with:
+        agentName: tools.agentName
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.

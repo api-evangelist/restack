@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Restack API — Workflows
+  description: 'Restack API — Workflows. 2 operations. Lead operation: Schedule Workflow. Self-contained Naftiko capability
+    covering one Restack business surface.'
+  tags:
+  - Restack
+  - Workflows
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RESTACK_API_KEY: RESTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: restack-workflows
+    baseUri: http://localhost:6233
+    description: Restack API — Workflows business capability. Self-contained, no shared references.
+    resources:
+    - name: api-workflows-workflowName
+      path: /api/workflows/{workflowName}
+      operations:
+      - name: scheduleworkflow
+        method: POST
+        description: Schedule Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workflowName
+          in: path
+          type: string
+          description: The name of the workflow to schedule.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-workflows-workflowName-runId
+      path: /api/workflows/{workflowName}/{runId}
+      operations:
+      - name: getworkflowrun
+        method: GET
+        description: Get Workflow Run
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workflowName
+          in: path
+          type: string
+          required: true
+        - name: runId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.RESTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: restack-workflows-rest
+    port: 8080
+    description: REST adapter for Restack API — Workflows. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/workflows/{workflowname}
+      name: api-workflows-workflowname
+      description: REST surface for api-workflows-workflowName.
+      operations:
+      - method: POST
+        name: scheduleworkflow
+        description: Schedule Workflow
+        call: restack-workflows.scheduleworkflow
+        with:
+          workflowName: rest.workflowName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/workflows/{workflowname}/{runid}
+      name: api-workflows-workflowname-runid
+      description: REST surface for api-workflows-workflowName-runId.
+      operations:
+      - method: GET
+        name: getworkflowrun
+        description: Get Workflow Run
+        call: restack-workflows.getworkflowrun
+        with:
+          workflowName: rest.workflowName
+          runId: rest.runId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: restack-workflows-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Restack API — Workflows. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: schedule-workflow
+      description: Schedule Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: restack-workflows.scheduleworkflow
+      with:
+        workflowName: tools.workflowName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-workflow-run
+      description: Get Workflow Run
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: restack-workflows.getworkflowrun
+      with:
+        workflowName: tools.workflowName
+        runId: tools.runId
+      outputParameters:
+      - type: object
+        mapping: $.
