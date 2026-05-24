@@ -72,6 +72,8 @@ common:
   url: https://github.com/restackio/examples-typescript
 - type: Kubernetes Helm
   url: https://github.com/restackio/helm
+- type: LLMsTxt
+  url: https://docs.restack.io/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
