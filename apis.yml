@@ -56,6 +56,10 @@ apis:
       - type: Boilerplate
         url: https://github.com/restackio/boilerplate
 common:
+  - type: DomainSecurity
+    url: security/restack-domain-security.yml
+  - type: Authentication
+    url: authentication/restack-authentication.yml
   - type: Website
     url: https://www.restack.io/
   - type: Documentation

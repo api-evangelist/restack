@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/restack-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token for API authentication. Set via RESTACK_API_BEARER_TOKEN environment
+    variable.
+  sources:
+  - openapi/restack-openapi.yml
