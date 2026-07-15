@@ -56,6 +56,8 @@ apis:
       - type: Boilerplate
         url: https://github.com/restackio/boilerplate
 common:
+  - type: AgenticAccess
+    url: agentic-access/restack-agentic-access.yml
   - type: DomainSecurity
     url: security/restack-domain-security.yml
   - type: Authentication
