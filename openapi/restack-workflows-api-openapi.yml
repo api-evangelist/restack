@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: Restack Agents Workflows API
+  description: The Restack API provides REST endpoints for scheduling, triggering, and managing AI agents and workflows. Restack automatically generates REST API endpoints for each agent and workflow registered in the platform, allowing programmatic invocation from any client application. Authentication is supported via Bearer tokens for secure access control.
+  version: 1.0.0
+  contact:
+    name: Restack
+    url: https://www.restack.io/
+  license:
+    name: Proprietary
+    url: https://www.restack.io/terms
+servers:
+- url: http://localhost:6233
+  description: Restack Local Server
+- url: https://api.restack.io
+  description: Restack Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Workflows
+paths:
+  /api/workflows/{workflowName}:
+    post:
+      operationId: scheduleWorkflow
+      summary: Schedule Workflow
+      description: Schedule a workflow by name. The workflow will be executed asynchronously and the request will return immediately with a run ID. Long-running workflows persist state across days, months, or years.
+      tags:
+      - Workflows
+      parameters:
+      - name: workflowName
+        in: path
+        required: true
+        description: The name of the workflow to schedule.
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowRunRequest'
+      responses:
+        '200':
+          description: Workflow scheduled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRunResponse'
+        '401':
+          description: Unauthorized - invalid or missing bearer token
+        '404':
+          description: Workflow not found
+        '500':
+          description: Internal server error
+  /api/workflows/{workflowName}/{runId}:
+    get:
+      operationId: getWorkflowRun
+      summary: Get Workflow Run
+      description: Retrieve the status and result of a specific workflow run by run ID.
+      tags:
+      - Workflows
+      parameters:
+      - name: workflowName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRunStatus'
+        '404':
+          description: Workflow run not found
+components:
+  schemas:
+    WorkflowRunRequest:
+      type: object
+      properties:
+        input:
+          type: object
+          description: Input parameters for the workflow. Must match the workflow's defined input schema.
+          additionalProperties: true
+    WorkflowRunResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Unique identifier for the workflow run.
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - completed
+          - failed
+    WorkflowRunStatus:
+      type: object
+      properties:
+        runId:
+          type: string
+        workflowName:
+          type: string
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - completed
+          - failed
+        output:
+          type: object
+          additionalProperties: true
+        error:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token for API authentication. Set via RESTACK_API_BEARER_TOKEN environment variable.
