@@ -5,7 +5,20 @@ description: >-
   products. It provides durable workflow orchestration, long-running agent execution, and infrastructure for deploying
   AI agents at enterprise scale using Python and Kubernetes.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/restack.png
 tags:
   - AI Agents
   - Workflows
@@ -17,44 +30,105 @@ created: '2025-02-17'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: restack:restack
-    name: Restack
-    description: >-
-      Restack is an enterprise AI agent platform that provides long-running workflow orchestration, durable execution,
-      and infrastructure for building and deploying AI agents. It generates REST API endpoints for each agent and
-      workflow, enabling programmatic triggering, scheduling, and management of AI agents from any client application.
-    humanURL: https://www.restack.io/
-    baseURL: https://api.restack.io
-    tags:
-      - AI Agents
-      - Workflows
-      - Orchestration
-      - Enterprise
-    properties:
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/openapi/restack-openapi.yml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-agent-run-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-workflow-run-schema.json
-      - type: Vocabulary
-        url: https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/vocabulary/restack-vocabulary.yml
-      - type: Documentation
-        url: https://docs.restack.io/
-      - type: GettingStarted
-        url: https://docs.restack.io/
-      - type: GitHubOrganization
-        url: https://github.com/restackio
-      - type: Python SDK
-        url: https://github.com/restackio/examples-python
-      - type: TypeScript SDK
-        url: https://github.com/restackio/examples-typescript
-      - type: Kubernetes Helm
-        url: https://github.com/restackio/helm
-      - type: Boilerplate
-        url: https://github.com/restackio/boilerplate
+- aid: restack:restack-agents-api
+  name: Restack Agents API
+  description: The Agents API from Restack — 2 operation(s) for agents.
+  humanURL: https://www.restack.io/
+  baseURL: https://api.restack.io
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/restack-agents-api-openapi.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-agent-run-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-workflow-run-schema.json
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/vocabulary/restack-vocabulary.yml
+  - type: Documentation
+    url: https://docs.restack.io/
+  - type: GettingStarted
+    url: https://docs.restack.io/
+  - type: GitHubOrganization
+    url: https://github.com/restackio
+  - type: Python SDK
+    url: https://github.com/restackio/examples-python
+  - type: TypeScript SDK
+    url: https://github.com/restackio/examples-typescript
+  - type: Kubernetes Helm
+    url: https://github.com/restackio/helm
+  - type: Boilerplate
+    url: https://github.com/restackio/boilerplate
+- aid: restack:restack-system-api
+  name: Restack System API
+  description: The System API from Restack — 1 operation(s) for system.
+  humanURL: https://www.restack.io/
+  baseURL: https://api.restack.io
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/restack-system-api-openapi.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-agent-run-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-workflow-run-schema.json
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/vocabulary/restack-vocabulary.yml
+  - type: Documentation
+    url: https://docs.restack.io/
+  - type: GettingStarted
+    url: https://docs.restack.io/
+  - type: GitHubOrganization
+    url: https://github.com/restackio
+  - type: Python SDK
+    url: https://github.com/restackio/examples-python
+  - type: TypeScript SDK
+    url: https://github.com/restackio/examples-typescript
+  - type: Kubernetes Helm
+    url: https://github.com/restackio/helm
+  - type: Boilerplate
+    url: https://github.com/restackio/boilerplate
+- aid: restack:restack-workflows-api
+  name: Restack Workflows API
+  description: The Workflows API from Restack — 2 operation(s) for workflows.
+  humanURL: https://www.restack.io/
+  baseURL: https://api.restack.io
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/restack-workflows-api-openapi.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-agent-run-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/json-schema/restack-workflow-run-schema.json
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/restack/refs/heads/main/vocabulary/restack-vocabulary.yml
+  - type: Documentation
+    url: https://docs.restack.io/
+  - type: GettingStarted
+    url: https://docs.restack.io/
+  - type: GitHubOrganization
+    url: https://github.com/restackio
+  - type: Python SDK
+    url: https://github.com/restackio/examples-python
+  - type: TypeScript SDK
+    url: https://github.com/restackio/examples-typescript
+  - type: Kubernetes Helm
+    url: https://github.com/restackio/helm
+  - type: Boilerplate
+    url: https://github.com/restackio/boilerplate
 common:
   - type: AgenticAccess
     url: agentic-access/restack-agentic-access.yml
