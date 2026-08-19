@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Restack Agents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Schedule Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:6233/api/agents/:agentName",
+            "params": [
+              {
+                "name": "agentName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the agent to schedule."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule an AI agent by name. The agent will be executed asynchronously and the request will return immediately with a run ID that can be used to track the execution. Inputs and outputs must have types defined."
+        },
+        {
+          "info": {
+            "name": "Get Agent Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:6233/api/agents/:agentName/:runId",
+            "params": [
+              {
+                "name": "agentName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the status and result of a specific agent run by run ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
