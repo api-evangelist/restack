@@ -1,9 +1,7 @@
 {
   "provider": "restack",
   "sources": [
-    "restack-agents-api-openapi.yml",
-    "restack-system-api-openapi.yml",
-    "restack-workflows-api-openapi.yml"
+    "_original/restack-openapi.yml"
   ],
   "outputs": [
     "restack-agents-api-openapi.yml",
@@ -13,6 +11,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "restack-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "restack-openapi.yml: declared missing tag: Agents",
+    "restack-openapi.yml: declared missing tag: System",
+    "restack-openapi.yml: declared missing tag: Workflows",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "restack-agents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "restack-system-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "restack-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

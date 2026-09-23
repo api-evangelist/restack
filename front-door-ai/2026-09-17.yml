@@ -1,0 +1,29 @@
+# Front Door AI Index — restack — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: restack
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.restack.io
+  final_host: www.restack.io
+  ownership: own
+  owner: restack
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 4
+  host_score: 4
+  density: 10.39
+  words: 385
+  tiers:
+    agentic: 2
+    core: 2
+    model: 0
+  ambiguous: 16
+  top_terms:
+    agent: 14
+    AI: 2
+    intelligence: 2
+    AI agent: 1
+    prompts: 1

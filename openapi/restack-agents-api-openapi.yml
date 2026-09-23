@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Restack Agents API
   description: The Restack API provides REST endpoints for scheduling, triggering, and managing AI agents and workflows. Restack automatically generates REST API endpoints for each agent and workflow registered in the platform, allowing programmatic invocation from any client application. Authentication is supported via Bearer tokens for secure access control.
@@ -81,26 +81,6 @@ paths:
           description: Agent run not found
 components:
   schemas:
-    AgentRunResponse:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Unique identifier for the agent run.
-        status:
-          type: string
-          enum:
-          - queued
-          - running
-          - completed
-          - failed
-    AgentRunRequest:
-      type: object
-      properties:
-        input:
-          type: object
-          description: Input parameters for the agent. Must match the agent's defined input schema.
-          additionalProperties: true
     AgentRunStatus:
       type: object
       properties:
@@ -126,6 +106,26 @@ components:
         completedAt:
           type: string
           format: date-time
+    AgentRunRequest:
+      type: object
+      properties:
+        input:
+          type: object
+          description: Input parameters for the agent. Must match the agent's defined input schema.
+          additionalProperties: true
+    AgentRunResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Unique identifier for the agent run.
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - completed
+          - failed
   securitySchemes:
     bearerAuth:
       type: http
