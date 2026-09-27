@@ -81,6 +81,19 @@ paths:
           description: Agent run not found
 components:
   schemas:
+    AgentRunResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Unique identifier for the agent run.
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - completed
+          - failed
     AgentRunStatus:
       type: object
       properties:
@@ -113,19 +126,6 @@ components:
           type: object
           description: Input parameters for the agent. Must match the agent's defined input schema.
           additionalProperties: true
-    AgentRunResponse:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Unique identifier for the agent run.
-        status:
-          type: string
-          enum:
-          - queued
-          - running
-          - completed
-          - failed
   securitySchemes:
     bearerAuth:
       type: http
