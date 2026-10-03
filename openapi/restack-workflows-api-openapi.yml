@@ -81,19 +81,6 @@ paths:
           description: Workflow run not found
 components:
   schemas:
-    WorkflowRunResponse:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Unique identifier for the workflow run.
-        status:
-          type: string
-          enum:
-          - queued
-          - running
-          - completed
-          - failed
     WorkflowRunRequest:
       type: object
       properties:
@@ -126,6 +113,19 @@ components:
         completedAt:
           type: string
           format: date-time
+    WorkflowRunResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Unique identifier for the workflow run.
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - completed
+          - failed
   securitySchemes:
     bearerAuth:
       type: http
