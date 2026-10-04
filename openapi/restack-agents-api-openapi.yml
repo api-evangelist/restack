@@ -81,13 +81,6 @@ paths:
           description: Agent run not found
 components:
   schemas:
-    AgentRunRequest:
-      type: object
-      properties:
-        input:
-          type: object
-          description: Input parameters for the agent. Must match the agent's defined input schema.
-          additionalProperties: true
     AgentRunResponse:
       type: object
       properties:
@@ -126,6 +119,13 @@ components:
         completedAt:
           type: string
           format: date-time
+    AgentRunRequest:
+      type: object
+      properties:
+        input:
+          type: object
+          description: Input parameters for the agent. Must match the agent's defined input schema.
+          additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
