@@ -81,19 +81,6 @@ paths:
           description: Agent run not found
 components:
   schemas:
-    AgentRunResponse:
-      type: object
-      properties:
-        runId:
-          type: string
-          description: Unique identifier for the agent run.
-        status:
-          type: string
-          enum:
-          - queued
-          - running
-          - completed
-          - failed
     AgentRunStatus:
       type: object
       properties:
@@ -119,6 +106,19 @@ components:
         completedAt:
           type: string
           format: date-time
+    AgentRunResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: Unique identifier for the agent run.
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - completed
+          - failed
     AgentRunRequest:
       type: object
       properties:
